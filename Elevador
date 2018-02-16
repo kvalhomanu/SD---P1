@@ -1,0 +1,176 @@
+int ledVerde = 15;
+int ledVermelho = 16;
+int motor1 = 13;
+int motor2 = 12;
+int controle = 8;
+int a = 7;
+int b = 6;
+int c = 5;
+int d = 4;
+int e = 3;
+int f = 0;
+int g = 2;
+int botao1 = 11;
+int botao2 = 10;
+int botao3 = 9;
+int andar = 1;
+int espera1 = 2000;
+
+
+void setup()
+{
+  pinMode(motor1, OUTPUT);
+  pinMode(motor2, OUTPUT);
+  pinMode(controle, OUTPUT);
+  pinMode(botao1, INPUT_PULLUP);
+  pinMode(botao2, INPUT_PULLUP);
+  pinMode(botao3, INPUT_PULLUP);
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+
+}
+void loop()
+{
+  if (andar == 1) {
+    escreveLed(0, 254, 254, 0, 0, 0, 0); // 1 andar
+  }
+
+  if (digitalRead(botao1) == LOW) {
+
+    if (andar == 2) {
+
+      //descer do 2 para o 1 andar
+      digitalWrite(ledVerde, LOW); // apaga led verde
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, HIGH);
+      digitalWrite(motor2, LOW);
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      delay(250); // tempo util descida
+      escreveLed(0, 254, 254, 0, 0, 0, 0); // 1 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    if (andar == 3) {
+
+      //descer do 3 para o 1 andar
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, HIGH);
+      digitalWrite(motor2, LOW);
+      escreveLed(254, 254, 254, 254, 0, 0, 254); // 3 andar
+      delay(250); // tempo util descida
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      delay(250); // tempo util descida
+      escreveLed(0, 254, 254, 0, 0, 0, 0); // 1 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    andar = 1; //define andar chegada
+  }
+  if (digitalRead(botao2) == LOW) {
+
+    if (andar == 1) {
+
+      //subir do 1 para o 2 andar
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, LOW);
+      digitalWrite(motor2, HIGH);
+      escreveLed(0, 254, 254, 0, 0, 0, 0); // 1 andar
+      delay(250); // tempo util subida
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    if (andar == 3) {
+
+      //descer do 3 para o 2 andar
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, HIGH);
+      digitalWrite(motor2, LOW);
+      escreveLed(254, 254, 254, 254, 0, 0, 254); // 3 andar
+      delay(250);  // tempo util descida
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    andar = 2; //define andar chegada
+  }
+
+  if (digitalRead(botao3) == LOW) {
+
+    if (andar == 2) {
+
+      //subir do 2 para o 3 andar
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, LOW);
+      digitalWrite(motor2, HIGH);
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      delay(250); // tempo util subida
+      escreveLed(254, 254, 254, 254, 0, 0, 254); // 3 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    if (andar == 1) {
+
+      //subir do 1 para o 3 andar
+      digitalWrite(ledVerde, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      digitalWrite(controle, HIGH);
+      digitalWrite(motor1, LOW);
+      digitalWrite(motor2, HIGH);
+      escreveLed(0, 254, 254, 0, 0, 0, 0); // 1 andar
+      delay(250); // tempo util subida
+      escreveLed(254, 254, 0, 254, 254, 0, 254); // 2 andar
+      delay(250); // tempo util subida
+      escreveLed(254, 254, 254, 254, 0, 0, 254); // 3 andar
+      digitalWrite(controle, LOW);
+      digitalWrite(ledVerde, HIGH);
+      digitalWrite(ledVermelho, LOW);
+      delay(espera1);// repouso 5 segundos para sairem ou entrar
+
+    }
+    andar = 3; //define andar chegada
+  }
+
+}
+
+void escreveLed(int valA, int valB, int valC, int valD, int valE, int valF, int valG) {
+  digitalWrite(a, valA);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(b, valB);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(c, valC);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(d, valD);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(e, valE);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(f, valF);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(g, valG);   // turn the LED on (HIGH is the voltage level)
+
+}
